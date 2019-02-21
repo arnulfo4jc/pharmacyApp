@@ -15,7 +15,7 @@ class Product implements Serializable {
 	Date lastUpdated
 
   static constraints = {
-    name blank:false, unique:true
+    name blank:false
     location blank:false, inList:Holders.config.ni.sb.locations as List
   }
 

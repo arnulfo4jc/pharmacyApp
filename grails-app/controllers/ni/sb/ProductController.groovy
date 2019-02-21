@@ -204,6 +204,10 @@ class ProductController {
   	product.properties = params
 
   	if (!product.save()) {
+      
+      product.errors.allErrors.each { e ->
+      log.error "[$e.field: $e.defaultMessage]" }
+
   		chain action:"show", params:[id:id], model:[product:product]
   	} else {
   		redirect action:"show", params:[id:id]

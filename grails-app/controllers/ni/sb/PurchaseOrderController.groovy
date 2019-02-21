@@ -76,6 +76,7 @@ class PurchaseOrderController {
     [orders:orders, providers:providers, stores:stores]
   }
 
+  @Secured(["ROLE_ADMIN", "ROLE_USER"])
   def stock() {
     //items
     def criteria = Item.createCriteria()
@@ -444,6 +445,8 @@ class PurchaseOrderController {
         }
 
         params.total = params.float("purchasePrice", 0) * params.int("quantity", 0)
+        //Transformmar Valor de venta a valor Numerico
+        params.sellingPrice = params.float("sellingPrice", 0)
 
         def medicine = new MedicineOrder(params)
 
@@ -495,6 +498,8 @@ class PurchaseOrderController {
         }
 
         params.total = params.float("purchasePrice", 0) * params.int("quantity", 0)
+        //Transformmar Valor de venta a valor Numerico
+        params.sellingPrice = params.float("sellingPrice", 0)
 
         def product = new Item(params)
 
@@ -548,6 +553,8 @@ class PurchaseOrderController {
         }
 
         params.total = params.float("purchasePrice", 0) * params.int("quantity", 0)
+        //Transformmar Valor de venta a valor Numerico
+        params.sellingPrice = params.float("sellingPrice", 0)
 
         def brandProductOrder = new BrandProductOrder(params)
 

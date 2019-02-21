@@ -7,7 +7,7 @@
 	<r:require modules="bootstrap-css, bootstrap-collapse, filterStock, app"/>
 </head>
 <body>
-	<h4 id="medicine" style="cursor:pointer;">Medicinas</h4>
+	<h2 id="medicine" style="cursor:pointer;">MEDICINAS</h2>
 	<div id="medicines">
 		<g:set var="totalStock" value="${0}"/>
 		<g:each in="${medicines}" var="medicine" status="index">
@@ -27,8 +27,12 @@
 						<th>Presentacion</th>
 						<th>Medida</th>
 						<th>Cantidad</th>
-						<th>Precio de venta</th>
-						<th>Monto Total</th>
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<th>Precio de venta</th>
+						</sec:ifAnyGranted>
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<th>Monto Total</th>
+						</sec:ifAnyGranted>
 					</thead>
 				</g:if>
 				<tbody>
@@ -37,20 +41,31 @@
 							<td>${m.presentation}</td>
 							<td>${m.measure}</td>
 							<td>${m.quantity}</td>
-							<td>${m.sellingPrice}</td>
-							<td>${m.sellingPrice * m.quantity}</td>
+							<sec:ifAnyGranted roles="ROLE_ADMIN">
+								<td>${m.sellingPrice}</td>
+							</sec:ifAnyGranted>
+							<sec:ifAnyGranted roles="ROLE_ADMIN">
+								<td>${m.sellingPrice * m.quantity}</td>
+							</sec:ifAnyGranted>
 							<g:set var="totalStock" value="${totalStock + (m.sellingPrice * m.quantity)}"/>
 						</tr>
 					</g:each>
 				</tbody>
 			</table>
 		</g:each>
-		<div class="col-md-12 bg-primary totalStock">
-			<h4 class="pull-right">TOTAL PRODUCTOS DE MEDICINA: C$ ${totalStock}</h4>
-		</div>
-	</div>
+		
+		<sec:ifAnyGranted roles="ROLE_ADMIN">
+			<div class="col-md-12 bg-primary totalStock">
+				<h4 class="pull-right">TOTAL PRODUCTOS DE MEDICINA: C$ 
+				<g:formatNumber number="${totalStock}" type="number" maxFractionDigits="2"/></h4>
+			</div>
+		</sec:ifAnyGranted>
 
-	<h4 id="item" style="cursor:pointer;">Productos</h4>
+	</div>
+	
+	<br><br><br>
+
+	<h2 id="item" style="cursor:pointer;">PRODUCTOS</h2>
 	<table class="table table-hover" id="items">
 		<colgroup>
 			<col span="1" style="width: 20%;">
@@ -63,8 +78,12 @@
 			<th>Producto</th>
 			<th>Ubicacion</th>
 			<th>Cantidad</th>
-			<th>Precio de venta</th>
-			<th>Monto total</th>
+			<sec:ifAnyGranted roles="ROLE_ADMIN">
+				<th>Precio de venta</th>
+			</sec:ifAnyGranted>
+			<sec:ifAnyGranted roles="ROLE_ADMIN">
+				<th>Monto total</th>
+			</sec:ifAnyGranted>
 		</thead>
 		<tbody>
 			<g:each in="${items}" var="item">
@@ -72,18 +91,26 @@
 					<td>${item.product}</td>
 					<td>${item.location}</td>
 					<td>${item.quantity}</td>
-					<td>${item.sellingPrice}</td>
-					<td>${item.total}</td>
+					<sec:ifAnyGranted roles="ROLE_ADMIN">
+						<td>${item.sellingPrice}</td>
+					</sec:ifAnyGranted>
+					<sec:ifAnyGranted roles="ROLE_ADMIN">
+						<td>${item.total}</td>
+					</sec:ifAnyGranted>
 				</tr>
-			</g:each>
-			<tr>
-				<td colspan="4">Monto en productos</td>
-				<td colspan="1">${items.total.sum()}</td>
-			</tr>
+			</g:each>			
 		</tbody>
 	</table>
 
-	<h4 id="brandProduct" style="cursor:pointer;">Productos de marca</h4>
+	<sec:ifAnyGranted roles="ROLE_ADMIN">
+		<div class="col-md-12 bg-primary totalStock">
+			<h4 class="pull-right">TOTAL EN PRODUCTOS: C$ 
+			<g:formatNumber number="${items.total.sum()}" type="number" maxFractionDigits="2"/></h4>
+		</div>
+	</sec:ifAnyGranted>
+
+	<br><br><br>
+	<h2 id="brandProduct" style="cursor:pointer;">PRODUCTOS DE MARCA</h2>
 	<div id="brandProducts">
 		<g:set var="totalStock" value="${0}"/>
 		<g:each in="${brandProducts}" var="brandProduct" status="index">
@@ -101,8 +128,12 @@
 						<th>Marca</th>
 						<th>Detalle</th>
 						<th>Cantidad</th>
-						<th>Precio de venta</th>
-						<th>Monto Total</th>
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<th>Precio de venta</th>
+						</sec:ifAnyGranted>
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<th>Monto Total</th>
+						</sec:ifAnyGranted>
 					</thead>
 				</g:if>
 				<tbody>
@@ -111,17 +142,25 @@
 							<td>${b.brand}</td>
 							<td>${b.detail}</td>
 							<td>${b.quantity}</td>
-							<td>${b.sellingPrice}</td>
-							<td>${b.quantity * b.sellingPrice}</td>
+							<sec:ifAnyGranted roles="ROLE_ADMIN">
+								<td>${b.sellingPrice}</td>
+							</sec:ifAnyGranted>
+							<sec:ifAnyGranted roles="ROLE_ADMIN">
+								<td>${b.quantity * b.sellingPrice}</td>
+							</sec:ifAnyGranted>
 						</tr>
 						<g:set var="totalStock" value="${totalStock + (b.quantity * b.sellingPrice)}"/>
 					</g:each>
 				</tbody>
 			</table>
 		</g:each>
-		<div class="col-md-12 bg-primary totalStock">
-			<h4 class="pull-right">TOTAL PRODUCTOS DE MARCA: C$ ${totalStock}</h4>
-		</div>
+		<sec:ifAnyGranted roles="ROLE_ADMIN">
+			<div class="col-md-12 bg-primary totalStock">
+				<h4 class="pull-right">TOTAL PRODUCTOS DE MARCA: C$ 
+				<g:formatNumber number="${totalStock}" type="number" maxFractionDigits="2"/></h4>
+			</div>
+		</sec:ifAnyGranted>
+		
 	</div>
 
 	<style>
