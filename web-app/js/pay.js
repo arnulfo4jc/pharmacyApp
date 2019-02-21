@@ -31,7 +31,7 @@ $(function(){
 			$("#changeLabel").text("0");
 			$("#btnregistration").attr('disabled', 'disabled');
 		}else{
-			if (payment < balance) {
+			if (payment <= balance) {
 				$("#info").text("Datos correctos");
 				$("#info").css({color: "#428BCA"})
 			}else{

@@ -192,9 +192,12 @@ class PurchaseOrderController {
 
         //calculate total
         params.total = params.float("purchasePrice", 0) * params.int("quantity", 0)
+        
+        //Transformmar Valor de venta a valor Numerico
+        params.sellingPrice = params.float("sellingPrice", 0)
 
         def medicine = new MedicineOrder(params)
-
+        
         if (!medicine.validate(["product", "presentation", "measure", "quantity", "purchasePrice", "sellingPrice", "bash"])) {
           medicine.errors.allErrors.each { error ->
             log.error "[$error.field: $error.defaultMessage]"
@@ -245,6 +248,9 @@ class PurchaseOrderController {
         }
 
         params.total = params.float("purchasePrice", 0) * params.int("quantity", 0)
+
+        //Transformmar Valor de venta a valor Numerico
+        params.sellingPrice = params.float("sellingPrice", 0)
 
         def product = new Item(params)
 
@@ -311,6 +317,8 @@ class PurchaseOrderController {
         //2
         params.total = params.float("purchasePrice", 0) * params.int("quantity", 0)
 
+        //Transformmar Valor de venta a valor Numerico
+        params.sellingPrice = params.float("sellingPrice",0)
         //3
         def brandProductOrder = new BrandProductOrder(params)
 

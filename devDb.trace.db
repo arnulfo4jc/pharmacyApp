@@ -158,3 +158,79 @@ alter table user_role drop constraint FK143BF46A317E8126 [42102-173]
 org.h2.jdbc.JdbcSQLException: Tabla "USER_ROLE" no encontrada
 Table "USER_ROLE" not found; SQL statement:
 alter table user_role drop constraint FK143BF46AD6A94506 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "BRAND" no encontrada
+Table "BRAND" not found; SQL statement:
+alter table brand drop constraint FK59A4B8751D20CB7 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "BRAND_DETAILS" no encontrada
+Table "BRAND_DETAILS" not found; SQL statement:
+alter table brand_details drop constraint FKF19E6D8ABCCEAAE [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "CLIENT_PHONES" no encontrada
+Table "CLIENT_PHONES" not found; SQL statement:
+alter table client_phones drop constraint FK1C50AFB92C9E2A06 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "EXPENSES" no encontrada
+Table "EXPENSES" not found; SQL statement:
+alter table expenses drop constraint FK8CA4431B65EE096E [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "ITEM" no encontrada
+Table "ITEM" not found; SQL statement:
+alter table item drop constraint FK317B13CE732E4B [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "ITEM" no encontrada
+Table "ITEM" not found; SQL statement:
+alter table item drop constraint FK317B13BCCEAAE [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "ITEM" no encontrada
+Table "ITEM" not found; SQL statement:
+alter table item drop constraint FK317B13482B4CAE [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "ITEM" no encontrada
+Table "ITEM" not found; SQL statement:
+alter table item drop constraint FK317B135E1862A6 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "PAY" no encontrada
+Table "PAY" not found; SQL statement:
+alter table pay drop constraint FK1B0A837AE38FC [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "PAY" no encontrada
+Table "PAY" not found; SQL statement:
+alter table pay drop constraint FK1B0A8D6A94506 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "PRESENTATION" no encontrada
+Table "PRESENTATION" not found; SQL statement:
+alter table presentation drop constraint FK298AFF1A972A04A6 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "PRODUCT" no encontrada
+Table "PRODUCT" not found; SQL statement:
+alter table product drop constraint FKED8DCCEF922AD546 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "PURCHASE_ORDER_PROVIDER" no encontrada
+Table "PURCHASE_ORDER_PROVIDER" not found; SQL statement:
+alter table purchase_order_provider drop constraint FK34AAAEC0922AD546 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "SALE" no encontrada
+Table "SALE" not found; SQL statement:
+alter table sale drop constraint FK35C047D6A94506 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "SALE" no encontrada
+Table "SALE" not found; SQL statement:
+alter table sale drop constraint FK35C0472C9E2A06 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "SALE_DETAIL" no encontrada
+Table "SALE_DETAIL" not found; SQL statement:
+alter table sale_detail drop constraint FK4D1FC7495D8BA006 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "SALE_DETAIL" no encontrada
+Table "SALE_DETAIL" not found; SQL statement:
+alter table sale_detail drop constraint FK4D1FC7494E812386 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "USER_ROLE" no encontrada
+Table "USER_ROLE" not found; SQL statement:
+alter table user_role drop constraint FK143BF46A317E8126 [42102-173]
+02-15 15:44:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "USER_ROLE" no encontrada
+Table "USER_ROLE" not found; SQL statement:
+alter table user_role drop constraint FK143BF46AD6A94506 [42102-173]

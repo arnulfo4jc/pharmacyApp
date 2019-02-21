@@ -28,7 +28,7 @@
 						<th>Medida</th>
 						<th>Cantidad</th>
 						<th>Precio de venta</th>
-						<th>Total</th>
+						<th>Monto Total</th>
 					</thead>
 				</g:if>
 				<tbody>
@@ -101,8 +101,8 @@
 						<th>Marca</th>
 						<th>Detalle</th>
 						<th>Cantidad</th>
-						<th>Cantidad</th>
-						<th>Cantidad</th>
+						<th>Precio de venta</th>
+						<th>Monto Total</th>
 					</thead>
 				</g:if>
 				<tbody>
