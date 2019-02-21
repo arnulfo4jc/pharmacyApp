@@ -37,12 +37,15 @@
 	<div class="col-md-5">
 		<h4>Registrar Nuevo usuario</h4>
 		<g:form controller="user" action="list">
+			
 			<div class="form-group">
 				<g:textField type="text" class="form-control" name="username" placeHolder="Correo electrónico" required=""/>
 			</div>
+			
 			<div class="form-group">
 			<g:textField type="text" class="form-control" name="fullName" placeHolder="Nombre completo" required=""/>
 			</div>
+
 			<div class="form-group">
 				<g:select name="authority" from="${['Administrador', 'Usuario']}" keys="['ROLE_ADMIN', 'ROLE_USER']" noSelection="[null:'Selecciona rol del usuario']" class="form-control"/>
 			</div>

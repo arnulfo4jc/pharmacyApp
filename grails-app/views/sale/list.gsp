@@ -80,6 +80,40 @@
 			<g:else>
 				<h4>Sin ventas que mostrar</h4>
 			</g:else>
+
+
+
+
+			<table class="table table-hover">
+				<thead>
+					<th>Fecha de venta</th>
+					<th>Producto Vendido</th>
+					<th>Cantidad</th>
+					<th>Total</th>
+				</thead>
+				<tbody>
+					<g:each in="${sales}" var="sale" status="i">
+						<g:each in="${sale.saleDetails}" var="saleD" status="e">
+						<tr class="${sale.canceled ? 'active' : ''}">
+							<td>
+								<g:formatDate date="${sale.dateCreated}" formatName="custom.date.format"/>
+							</td>
+							<td>
+								${saleD.item}
+							</td>
+							<td>
+								${saleD.quantity}
+							</td>
+							<td>
+								${saleD.total}
+							</td>
+						</tr>
+						</g:each>
+					</g:each>
+					</tbody>
+				</table>
+
+
 		</div>
 
 		<div class="col-md-3">
