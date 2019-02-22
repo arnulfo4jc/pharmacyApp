@@ -19,20 +19,23 @@
 		<div class="col-md-9">
 			<g:if test="${sales}">
 				<h4>Ventas</h4>
+
+				<g:if test="${checkVentas == 'clients'}">
+
 				<table class="table table-hover">
 					<thead>
+						<tr>
+							<td colspan="6">
+								<h3 class="pull-right montoVentas">
+									MONTO VENDIDO: C$ <g:formatNumber number="${amount}" type="number" maxFractionDigits="2"/> 
+								</h3>
+							</td>
+						</tr>
 						<th width="1">#</th>
-						<th>
-							<g:if test="${request.method == 'GET' || (!params?.from && !params?.to)}">
-								Hora
-							</g:if>
-							<g:else>
-								Fecha de venta
-							</g:else>
-						</th>
+						<th>Fecha de venta</th>
 						<th>Cliente</th>
 						<th>Total de compra</th>
-						<th>Tipo de compra</th>
+						<th>Tipo</th>
 						<th>Vendedor</th>
 					</thead>
 					<tbody>
@@ -44,19 +47,14 @@
 									</g:link>
 								</td>
 								<td>
-									<g:if test="${request.method == 'GET' || (!params?.from && !params?.to)}">
-										<g:formatDate date="${sale.dateCreated}" formatName="hour.date.format"/>
-									</g:if>
-									<g:else>
-										<g:formatDate date="${sale.dateCreated}" formatName="custom.date.format"/>
-									</g:else>
+									<g:formatDate date="${sale.dateCreated}" formatName="custom.date.format" format="dd-MM-yyyy - hh:mm"/>
 								</td>
 								<td>
 									<g:if test="${sale.instanceOf(ni.sb.SaleToClient)}">
 										${sale.client}
 									</g:if>
 								</td>
-								<td>${sale.balance}</td>
+								<td>C$ <g:formatNumber number="${sale.balance}" type="number" maxFractionDigits="2"/></td>
 								<td>
 									<g:if test="${sale.instanceOf(ni.sb.SaleToClient)}">
 										${sale.typeOfPurchase}
@@ -68,52 +66,62 @@
 								<td>${sale.user.fullName}</td>
 							</tr>
 						</g:each>
-						<g:if test="${request.method == 'POST'}">
-							<tr>
-								<td colspan="3">MONTO</td>
-								<td colspan="3">${amount}</td>
-							</tr>
-						</g:if>
 					</tbody>
 				</table>
+			
 			</g:if>
+
+
 			<g:else>
-				<h4>Sin ventas que mostrar</h4>
-			</g:else>
 
-
-
-
-			<table class="table table-hover">
+				<table class="table table-hover">
 				<thead>
-					<th>Fecha de venta</th>
+					<tr>
+						<td colspan="6">
+							<h3 class="pull-right montoVentas">
+								MONTO VENDIDO: C$ <g:formatNumber number="${amount}" type="number" maxFractionDigits="2"/> 
+							</h3>
+						</td>
+					</tr>
+					<th>Fecha</th>
 					<th>Producto Vendido</th>
 					<th>Cantidad</th>
+					<th>Precio</th>
 					<th>Total</th>
 				</thead>
 				<tbody>
 					<g:each in="${sales}" var="sale" status="i">
 						<g:each in="${sale.saleDetails}" var="saleD" status="e">
-						<tr class="${sale.canceled ? 'active' : ''}">
-							<td>
-								<g:formatDate date="${sale.dateCreated}" formatName="custom.date.format"/>
-							</td>
-							<td>
-								${saleD.item}
-							</td>
-							<td>
-								${saleD.quantity}
-							</td>
-							<td>
-								${saleD.total}
-							</td>
-						</tr>
+							<tr class="${sale.canceled ? 'active' : ''}">
+								<td>
+									${sale.dateCreated.format("dd-MM-yyyy - hh:mm")}
+								</td>
+								<td>
+									${saleD.item}
+								</td>
+								<td>
+									${saleD.quantity}
+								</td>
+								<td>
+									C$ <g:formatNumber number="${saleD.total / saleD.quantity}" type="number" maxFractionDigits="2"/>
+								</td>
+								<td>
+									C$ <g:formatNumber number="${saleD.total}" type="number" maxFractionDigits="2"/>
+								</td>
+							</tr>
 						</g:each>
 					</g:each>
-					</tbody>
-				</table>
+				</tbody>
+			</table>
+			
+			</g:else>
+	
 
+			</g:if>
 
+			<g:else>
+				<h4>Sin ventas que mostrar</h4>
+			</g:else>
 		</div>
 
 		<div class="col-md-3">
@@ -121,18 +129,31 @@
 			<table class="table">
 				<tbody>
 					<tr>
-						<td>Monto vendido</td>
+						<td>Monto total vendido</td>
 						<td>
-							${todaySaleAmount}
+							C$ <g:formatNumber number="${todaySaleAmount}" type="number" maxFractionDigits="2"/> 
+						</td>
+					</tr>
+					<tr>
+						<td>Ventas Contado</td>
+						<td>
+							C$ <g:formatNumber number="${ventasContado}" type="number" maxFractionDigits="2"/>
 						</td>
 					</tr>
 					<tr>
 						<td>Monto gasto diario</td>
-						<td>${amountOfDailyExpenses}</td>
+						<td>C$ <g:formatNumber number="${amountOfDailyExpenses}" type="number" maxFractionDigits="2"/></td>
 					</tr>
 					<tr>
 						<td>Monto en caja</td>
-						<td>${inBox}</td>
+						<td>
+							<g:if test="${ventasContado}">
+								C$ <g:formatNumber number="${ventasContado - amountOfDailyExpenses}" type="number" maxFractionDigits="2"/>	
+							</g:if>
+							<g:else>
+								C$ 0.00
+							</g:else>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -141,7 +162,7 @@
 			<div id="filterSales">
 				<g:form action="list" >
 					
-					<h5>Fechas</h5>
+					<h5><strong>Fechas</strong></h5>
 					<div class="form-group">
 						<label for="from" class="sr-only">Desde</label>
 						<g:textField name="from" value="${params?.from}" class="form-control" placeholder="Desde"/>
@@ -151,10 +172,10 @@
 						<g:textField name="to" value="${params?.to}" class="form-control" placeholder="Hasta"/>
 					</div>
 					
-					<h5>Clientes</h5>
+					<h5><strong>Clientes</strong></h5>
 					<g:select name="clients" from="${clients}" optionKey="id" multiple="true" class="form-control"/>
 
-					<h5>Tipo de pago</h5>
+					<h5><strong>Tipo de pago</strong></h5>
 					<div class="checkbox">
 						<label>
 							<g:checkBox name="cash" value="Contado" checked="${params?.cash ? true : false}"/>
@@ -168,7 +189,7 @@
 						</label>
 					</div>
 
-					<h5>Estado</h5>
+					<h5><strong>Estado</strong></h5>
 					<div class="checkbox">
 						<label>
 							<g:checkBox name="isPending" value="Pendiente" checked="${params?.isPending ? true : false}"/>
@@ -182,7 +203,21 @@
 						</label>
 					</div>
 
-					<h5>Anulado</h5>
+					<h5><strong>Ventas</strong></h5>
+					<div class="checkbox">
+						<label>
+							<g:radio name="checkVentas" value="clients"/>
+							Por clientes
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<g:radio name="checkVentas" value="product"/>
+							Por roductos
+						</label>
+					</div>
+
+					<h5><strong>Anulado</strong></h5>
 					<div class="checkbox">
 						<label>
 							<g:checkBox name="canceled" value="true" checked="${params?.canceled ? true : false}"/>
@@ -190,7 +225,7 @@
 						</label>
 					</div>
 
-					<h5>Vendedores</h5>
+					<h5><strong>Vendedores</strong></h5>
 					<g:each in="${users}" var="user">
 						<div class="checkbox">
 							<label>

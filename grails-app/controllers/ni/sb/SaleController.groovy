@@ -24,8 +24,43 @@ class SaleController {
     def users = User.list()
     def clients = Client.findAllByStatus(true, [sort:"fullName", order:"asc"])
     def sales = []
+    def salesContado = []
+    def checkVentas = "clients"
+    def ventasContado, criteria1
+
+    
+    criteria1 = Sale.createCriteria()
+      salesContado = criteria1 {
+        eq "typeOfPurchase", "Contado"
+        ge "dateCreated", today.clearTime()
+        le "dateCreated", today.clearTime() + 1
+        order "id", "desc"
+      }
+
+    ventasContado = salesContado.balance.sum()
+      
+
 
     if (request.method == "POST") {
+      checkVentas = params.checkVentas
+
+
+      criteria1 = Sale.createCriteria()
+      salesContado = criteria1 {
+        eq "typeOfPurchase", "Contado"
+
+        if (params?.from && params?.to) {
+          ge "dateCreated", params.date("from", "yyyy-MM-dd").clearTime()
+          le "dateCreated", params.date("to", "yyyy-MM-dd").clearTime() + 1
+        }else{
+          ge "dateCreated", today.clearTime()
+          le "dateCreated", today.clearTime() + 1
+        }
+        order "id", "desc"
+      }
+
+      ventasContado = salesContado.balance.sum()
+
       def criteria = Sale.createCriteria()
       sales = criteria {
         //filter between dates
@@ -89,7 +124,7 @@ class SaleController {
 
     def todaySaleAmount = Sale.fromTo(today, today + 1).findAllByCanceled(false).balance.sum() ?: 0
     def amountOfDailyExpenses = Daily.fromTo(today, today + 1).get().expenses.quantity.sum() ?: 0
-    def inBox = todaySaleAmount - amountOfDailyExpenses
+    //def inBox = todaySaleAmount - amountOfDailyExpenses
 
   	[
       sales: sales,
@@ -97,8 +132,9 @@ class SaleController {
       clients:clients,
       todaySaleAmount:todaySaleAmount,
       amountOfDailyExpenses:amountOfDailyExpenses,
-      inBox:inBox,
-      amount:sales.findAll{ !it.canceled }.balance.sum()
+      amount:sales.findAll{ !it.canceled }.balance.sum(),
+      checkVentas:checkVentas,
+      ventasContado:ventasContado
     ]
   }
 

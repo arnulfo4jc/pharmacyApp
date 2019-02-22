@@ -237,63 +237,63 @@ class BootStrap {
         //SALES
         //+++++++++++++++++++++++++++++++++++++++++++++++++++
 
-        def sale1 = new SaleToClient(user:user, balance:1, client:client1, typeOfPurchase:"Credito", status:"Pendiente")
-        def saleDetailItem1 = new SaleDetail(item:item1, quantity:5, total:item1.sellingPrice * 5)
-        item1.quantity -= saleDetailItem1.quantity
+        //def sale1 = new SaleToClient(user:user, balance:1, client:client1, typeOfPurchase:"Credito", status:"Pendiente")
+        //def saleDetailItem1 = new SaleDetail(item:item1, quantity:5, total:item1.sellingPrice * 5)
+        //item1.quantity -= saleDetailItem1.quantity
 
-        sale1.addToSaleDetails(saleDetailItem1)
+        //sale1.addToSaleDetails(saleDetailItem1)
 
-        sale1.balance = saleDetailItem1.total
+        //sale1.balance = saleDetailItem1.total
 
-        if (!sale1.save()) {
-          sale1.errors.allErrors.each { error -> log.error "[$error.field:$error.defaultMessage]" }
-        }
+        //if (!sale1.save()) {
+        //  sale1.errors.allErrors.each { error -> log.error "[$error.field:$error.defaultMessage]" }
+        //}
 
-        def sale2 = new SaleToClient(user:user, balance:1, client:client2, typeOfPurchase:"Contado", status:"Cancelado")
-        def saleDetailItem2 = new SaleDetail(item:item1, quantity:5, total:item1.sellingPrice * 5)
-        def saleDetailItem3 = new SaleDetail(item:item2, quantity:5, total:item1.sellingPrice * 5)
-        item1.quantity -= saleDetailItem1.quantity
-        item2.quantity -= saleDetailItem2.quantity
+        //def sale2 = new SaleToClient(user:user, balance:1, client:client2, typeOfPurchase:"Contado", status:"Cancelado")
+        //def saleDetailItem2 = new SaleDetail(item:item1, quantity:5, total:item1.sellingPrice * 5)
+        //def saleDetailItem3 = new SaleDetail(item:item2, quantity:5, total:item1.sellingPrice * 5)
+        //item1.quantity -= saleDetailItem1.quantity
+        //item2.quantity -= saleDetailItem2.quantity
 
-        sale2.addToSaleDetails(saleDetailItem2).addToSaleDetails(saleDetailItem3)
+        //sale2.addToSaleDetails(saleDetailItem2).addToSaleDetails(saleDetailItem3)
 
-        sale2.balance = saleDetailItem2.total + saleDetailItem3.total
+        //sale2.balance = saleDetailItem2.total + saleDetailItem3.total
 
-        if (!sale2.save()) {
-          sale2.errors.allErrors.each { error -> log.error "[$error.field:$error.defaultMessage]" }
-        }
+        //if (!sale2.save()) {
+        //  sale2.errors.allErrors.each { error -> log.error "[$error.field:$error.defaultMessage]" }
+        //}
 
         //canceled sale
-        def sale3 = new Sale(user:user, balance:1, canceled:true)
-        def saleDetailItem4 = new SaleDetail(item:item1, quantity:8, total:item1.sellingPrice * 8)
-        def saleDetailItem5 = new SaleDetail(item:item2, quantity:8, total:item1.sellingPrice * 8)
-        item1.quantity -= saleDetailItem4.quantity
-        item2.quantity -= saleDetailItem5.quantity
+        //def sale3 = new Sale(user:user, balance:1, canceled:true)
+        //def saleDetailItem4 = new SaleDetail(item:item1, quantity:8, total:item1.sellingPrice * 8)
+        //def saleDetailItem5 = new SaleDetail(item:item2, quantity:8, total:item1.sellingPrice * 8)
+        //item1.quantity -= saleDetailItem4.quantity
+        //item2.quantity -= saleDetailItem5.quantity
 
-        sale3.addToSaleDetails(saleDetailItem4).addToSaleDetails(saleDetailItem5)
+        //sale3.addToSaleDetails(saleDetailItem4).addToSaleDetails(saleDetailItem5)
 
-        sale3.balance = saleDetailItem4.total + saleDetailItem5.total
+        //sale3.balance = saleDetailItem4.total + saleDetailItem5.total
 
-        if (!sale3.save()) {
-          sale3.errors.allErrors.each { error -> log.error "[$error.field:$error.defaultMessage]" }
-        }
+        //if (!sale3.save()) {
+        //  sale3.errors.allErrors.each { error -> log.error "[$error.field:$error.defaultMessage]" }
+        //}
 
-        def sale4 = new SaleToClient(user:user1, balance:1, client:client1, typeOfPurchase:"Credito", status:"Pendiente", canceled:true)
-        def saleDetailItem6 = new SaleDetail(item:item3, quantity:21, total:item3.sellingPrice * 21)
-        item3.quantity -= saleDetailItem6.quantity
+        //def sale4 = new SaleToClient(user:user1, balance:1, client:client1, typeOfPurchase:"Credito", status:"Pendiente", canceled:true)
+        //def saleDetailItem6 = new SaleDetail(item:item3, quantity:21, total:item3.sellingPrice * 21)
+        //item3.quantity -= saleDetailItem6.quantity
 
-        sale4.addToSaleDetails(saleDetailItem6)
+        //sale4.addToSaleDetails(saleDetailItem6)
 
-        sale4.balance = saleDetailItem6.total
+        //sale4.balance = saleDetailItem6.total
 
-        if (!sale4.save()) {
-          sale4.errors.allErrors.each { error -> log.error "[$error.field:$error.defaultMessage]" }
-        }
+        //if (!sale4.save()) {
+        //  sale4.errors.allErrors.each { error -> log.error "[$error.field:$error.defaultMessage]" }
+        //}
 
-        assert sale1.balance == 93.75
-        assert sale2.balance == 187.50
-        assert sale3.balance == 300.00
-        assert sale4.balance == 1443.75
+        //assert sale1.balance == 93.75
+        //assert sale2.balance == 187.50
+        //assert sale3.balance == 300.00
+        //assert sale4.balance == 1443.75
 
         //+++++++++++++++++++++++++++++++++++++++++++++++++++
         //DAILY
